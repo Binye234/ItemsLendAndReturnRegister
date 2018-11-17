@@ -1,0 +1,28 @@
+﻿@model IEnumerable<RegisterSystem.Models.AdvanceModel>
+    
+    @{
+        ViewBag.Title = "应急处置中心物品登记系统";
+
+    }
+
+    <div class="container">
+        <img src="~/img/636579219127845134_banner1.jpg" class="img-responsive" alt="Responsive image" style="margin-left:-15px" />
+    </div>
+    <div class="container">
+        <p class="lead text-center">@ViewBag.state</p>
+    </div>
+
+    <div class="container">
+        <table class="table table-hover" style="margin-left:-15px">
+            <thead>
+            <th>#</th>
+            <th>姓名</th>
+            <th>预约原因</th>
+            <th>预约借出时间</th>
+            <th>预约归还时间</th></thead>
+            @foreach (var item in Model)
+            {
+                <tr><td>@item.ID</td><td>@item.Name</td><td>@item.Reason</td><td>@item.LendTime</td><td>@item.ReturnTime</td></tr>
+            }
+        </table>
+    </div>
