@@ -52,7 +52,11 @@ namespace BAL
             new RegistrationDB(_conString).Insert(name, reason, localTime, advanceTime);
             return true;
         }
-
+        /// <summary>
+        /// 核对姓名
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public bool IsName(string name)
         {
             bool flag = false;
@@ -70,7 +74,12 @@ namespace BAL
             }
             return flag;
         }
-
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
         public bool Update(string name,string time)
         {
             if (IsName(name))
@@ -82,6 +91,39 @@ namespace BAL
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// 返回查询总数
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        public int GetPageNums(string name, string beginTime, string endTime)
+        {
+            return new RegistrationDB(_conString).GetPageNums(name, beginTime, endTime);
+        }
+        /// <summary>
+        /// 返回按页查询结果
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="page">第几页</param>
+        /// <returns></returns>
+        public List<string[]> FindPage(string name, string beginTime, string endTime, string page)
+        {
+            return new RegistrationDB(_conString).FindPage(name, beginTime, endTime, page);
+        }
+        /// <summary>
+        /// 删除方法
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool Delete(string id)
+        {
+            return new RegistrationDB(_conString).DeleteID(id);
         }
     }
 }

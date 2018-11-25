@@ -149,10 +149,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LookController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdvanceModel.cs" />
+    <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +167,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\636579219127845134_banner1.jpg" />
+    <Content Include="Scripts\AdvanceJS.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -182,6 +185,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\RegistrationJS.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -200,6 +204,9 @@
     <Content Include="Views\Home\GiveBack.cshtml" />
     <Content Include="Views\Home\ErrorLend.cshtml" />
     <Content Include="Views\Home\ErrorGive.cshtml" />
+    <Content Include="Views\Look\Index.cshtml" />
+    <Content Include="Views\Look\ShowAdvance.cshtml" />
+    <Content Include="Views\Look\ShowRegistration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

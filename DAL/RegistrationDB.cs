@@ -126,5 +126,99 @@ namespace DAL
             }
             return result;
         }
+
+        /// <summary>
+        /// 返回查询总数
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="beginTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <returns></returns>
+        public int GetPageNums(string name, string beginTime, string endTime)
+        {
+            int result = 0;
+            string sql = "SELECT COUNT(*) FROM RegistrationForm WHERE Name LIKE @name and BeforeTime>=@beginTime and BeforeTime <=@endTime";
+            using (SqlConnection cn = new SqlConnection(_conString))
+            {
+                using (SqlCommand cm = new SqlCommand(sql, cn))
+                {
+                    cm.Parameters.AddWithValue("@name", "%" + name + "%");
+                    cm.Parameters.AddWithValue("@beginTime", beginTime);
+                    cm.Parameters.AddWithValue("@endTime", endTime);
+                    cn.Open();
+                    result = (int)cm.ExecuteScalar();
+                }
+            }
+            return result;
+        }
+        /// <summary>
+        /// 按页返回查询结果
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public List<string[]> FindPage(string name, string beginTime, string endTime, string page)
+        {
+            List<string[]> result = new List<string[]>();
+            string sql = "SELECT TOP (10*@page)  * FROM RegistrationForm WHERE Name LIKE @name and BeforeTime>=@beginTime and BeforeTime <=@endTime ORDER BY BeforeTime DESC";
+            using (SqlConnection cn = new SqlConnection(_conString))
+            {
+                using (SqlCommand cm = new SqlCommand(sql, cn))
+                {
+                    cm.Parameters.AddWithValue("@page", page);
+                    cm.Parameters.AddWithValue("@name", "%" + name + "%");
+                    cm.Parameters.AddWithValue("@beginTime", beginTime);
+                    cm.Parameters.AddWithValue("@endTime", endTime);
+                    cn.Open();
+                    var reader = cm.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string[] tmp = new string[6];
+                        tmp[0] = reader[0].ToString();
+                        tmp[1] = reader[1].ToString();
+                        tmp[2] = reader[2].ToString();
+                        tmp[3] = reader[3].ToString();
+                        tmp[4] = reader[4].ToString();
+                        tmp[5] = reader[5].ToString();
+                        result.Add(tmp);
+                    }
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 删除方法
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool DeleteID(string id)
+        {
+            bool flag = false;
+            try
+            {
+                string sql = "DELETE RegistrationForm WHERE ID=@ID";
+                using (SqlConnection cn = new SqlConnection(_conString))
+                {
+                    using (SqlCommand cm = new SqlCommand(sql, cn))
+                    {
+                        cm.Parameters.AddWithValue("@ID", id);
+                        cn.Open();
+                        int n = cm.ExecuteNonQuery();
+                        if (1 == n)
+                        {
+                            flag = true;
+                        }
+                    }
+                }
+                return flag;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
